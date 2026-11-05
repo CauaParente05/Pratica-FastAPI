@@ -1,0 +1,31 @@
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+
+# Editores / IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Anotações de estudo
+docs/
+
+# Logs
+*.log
