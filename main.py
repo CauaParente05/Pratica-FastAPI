@@ -16,19 +16,18 @@ def get_restaurantes(restaurante: str = Query(None)):
 
     if response.status_code == 200:
         dados_json = response.json()
-        dados_restaurantes = {}
+        dados_restaurantes = []
         if restaurante is None:
             return {'Dados': dados_json}
 
     for item in dados_json:
-        nome_do_restaurante = item['Company']
-        if nome_do_restaurante not in dados_restaurantes:
-            dados_restaurantes[nome_do_restaurante] = []
+        if item['Company'] == restaurante:   
+            dados_restaurantes.append({
+                'item': item['Item'],
+                'price': item['price'],
+                'description': item['description']  
+            })
             
-        dados_restaurantes[nome_do_restaurante].append({
-            'item': item['Item'],
-            'price': item['price'],
-            'description': item['description']  
-        })
+        return {'Restaurante': restaurante, 'Cardapio': dados_restaurantes}
     else:
-        print(f'Erro: {response.status_code}')
+        return f'Erro: {response.status_code} - {response.text}'
