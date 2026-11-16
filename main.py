@@ -46,3 +46,13 @@ def get_restaurantes(restaurante: str = Query(None)):
 def listar_nomes():
     nomes = [arquivo.stem for arquivo in DADOS.glob('*.json')]
     return 'Restaurantes:\n' + '\n' .join(nomes)
+
+@app.get('/api/restaurantes/{nome}')
+def get_cardapio(nome: str, preco_max: float | None = None):
+    caminho = DADOS / f'{nome}.json'
+    with open(caminho, encoding='utf-8') as arquivo:
+        cardapio = json.load(arquivo)
+        
+    if preco_max is not None:
+        cardapio = [prato for prato in cardapio if prato['price'] <= preco_max]
+    return cardapio
