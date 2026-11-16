@@ -84,4 +84,4 @@ Cada arquivo contém uma lista de pratos:
 
 - [✓] Expor rotas `GET` para listar restaurantes e seus cardápios (lendo `data/`).
 - [✓] Usar parâmetros de rota e de consulta (por exemplo, filtrar por restaurante).
-- [✓ ] Retornar *status codes* adequados (`200`, `404`) com `HTTPException`.
+- [✓] Retornar *status codes* adequados (`200`, `404`) com `HTTPException`.
