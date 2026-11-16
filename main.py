@@ -1,7 +1,12 @@
 from fastapi import FastAPI, Query
+from fastapi.responses import PlainTextResponse
 import requests
+from pathlib import Path
+import json
 
 app = FastAPI()
+
+DADOS = Path(__file__).parent / 'data'
 
 @app.get('/api/hello')
 def hello_world():
@@ -36,3 +41,8 @@ def get_restaurantes(restaurante: str = Query(None)):
         return {'Restaurante': restaurante, 'Cardapio': dados_restaurantes}
     else:
         return f'Erro: {response.status_code} - {response.text}'
+    
+@app.get('/api/restaurantes/nomes', response_class=PlainTextResponse)
+def listar_nomes():
+    nomes = [arquivo.stem for arquivo in DADOS.glob('*.json')]
+    return 'Restaurantes:\n' + '\n' .join(nomes)
