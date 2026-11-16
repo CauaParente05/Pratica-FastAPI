@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException
 from fastapi.responses import PlainTextResponse
 import requests
 from pathlib import Path
@@ -50,6 +50,9 @@ def listar_nomes():
 @app.get('/api/restaurantes/{nome}')
 def get_cardapio(nome: str, preco_max: float | None = None):
     caminho = DADOS / f'{nome}.json'
+    if not caminho.exists():
+        raise HTTPException(status_code=404, detail=f'restaurante "{nome}" não encontrado')
+    
     with open(caminho, encoding='utf-8') as arquivo:
         cardapio = json.load(arquivo)
         
